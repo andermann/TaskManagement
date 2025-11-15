@@ -223,3 +223,5 @@ Após rodar esses script de um build na apliação emulando via http onde o dock
 ## 4. Testes de Cobertura
 
 Utilizei Fine Code Coverage para medir a cobertura de código dos testes unitários.
+
+![Img 638988246144943104](img_638988246144943104.png)
