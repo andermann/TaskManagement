@@ -1,0 +1,89 @@
+﻿# version: '3.4'
+
+# services:
+#   db:
+#     # IMAGEM LINUX MySQL: Essencial para o modo Linux Containers
+#     image: mysql:8.0
+#     container_name: task_db
+#     environment:
+#       MYSQL_DATABASE: taskmgr
+#       MYSQL_USER: taskuser
+#       MYSQL_PASSWORD: taskpass
+#       MYSQL_ROOT_PASSWORD: rootpass
+#     ports:
+#       - "3306:3306"
+#     healthcheck:
+#       test: ["CMD-SHELL", "mysqladmin ping -h localhost -prootpass"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 20
+#     volumes:
+#       - dbdata:/var/lib/mysql
+
+#   api:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: task_api
+#     depends_on:
+#       db:
+#         # A API só inicia após o banco de dados estar saudável
+#         condition: service_healthy 
+        
+#     environment:
+#       ASPNETCORE_ENVIRONMENT: "Production"
+#       # Connection String para o MySQL. O nome do servidor é 'db' (o nome do serviço)
+#       ConnectionStrings__MySql: "Server=db;Port=3306;Database=taskmgr;User=taskuser;Password=taskpass;SslMode=None;AllowPublicKeyRetrieval=True;Connection Timeout=30;"
+      
+#     ports:
+#       - "8080:8080"
+    
+
+# volumes:
+#   dbdata:
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: task_db
+    environment:
+      MYSQL_DATABASE: taskmgr
+      MYSQL_USER: taskuser
+      MYSQL_PASSWORD: taskpass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -prootpass"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+  api:
+    build:
+      # context: ./TaskManagement.Api
+      context: .
+      # dockerfile: ./Dockerfile
+      dockerfile: ./TaskManagement.Api/Dockerfile
+      # dockerfile: ./Dockerfile
+    container_name: task_api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:8080"
+      ConnectionStrings__MySql: "Server=db;Port=3306;Database=taskmgr;User=taskuser;Password=taskpass;SslMode=None;AllowPublicKeyRetrieval=True;Connection Timeout=10;"
+      
+    ports:
+      - "32792:8080"
+    
+
+
+volumes:
+  dbdata:
