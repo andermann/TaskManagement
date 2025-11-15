@@ -225,6 +225,4 @@ Após rodar esses script de um build na apliação emulando via http onde o dock
 
 ## 4. Testes de Cobertura
 
-dotnet test --collect:"XPlat Code Coverage" -c Release
-reportgenerator -reports:"**/TestResults/**/coverage.cobertura.xml" -targetdir:"coverage-report"
-start coverage-report/index.html
+Utilizei Fine Code Coverage para medir a cobertura de código dos testes unitários.
