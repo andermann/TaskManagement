@@ -10,11 +10,10 @@ API REST para gestão de projetos e tarefas, construída em **ASP.NET Core 9** c
 2. [Tecnologias e bibliotecas utilizadas](#tecnologias-e-bibliotecas-utilizadas)  
 3. [Pré-requisitos](#pré-requisitos)  
 4. [Configuração do banco de dados](#configuração-do-banco-de-dados)  
-5. [Execução com Docker / Docker Compose](#execução-com-docker--docker-compose)  
-6. [Testando o container e a API](#testando-o-container-e-a-api)  
-7. [Execução local (sem Docker)](#execução-local-sem-docker)  
-8. [Endpoints da API (Controllers)](#endpoints-da-api-controllers)  
-9. [Estrutura de pastas](#estrutura-de-pastas)  
+5. [Testando o container e a API](#testando-o-container-e-a-api)  
+6. [Execução local (sem Docker)](#execução-local-sem-docker)  
+7. [Endpoints da API (Controllers)](#endpoints-da-api-controllers)  
+8. [Estrutura de pastas](#estrutura-de-pastas)  
 
 ---
 
